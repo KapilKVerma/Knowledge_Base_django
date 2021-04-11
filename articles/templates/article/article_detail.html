@@ -1,0 +1,52 @@
+{% extends 'article/base.html' %} {% block content %}
+
+<div class="container">
+  <div class="row" style="margin-top:6.5%">
+    <div class="col"> 
+      <div class="card ">
+        <div class="card-body" >
+        <div style="display:flex; flex-direction: row; justify-content: space-between">
+          <h3 class="card-title" style="color: #2ec4b6">{{ article.title }}</h3>
+          <div>     {% if article.author == user%}
+            <a
+              href="{% url 'article-update' article.id %}"
+              class="btn btn-primary btn-sm"
+              style="background-color: #2ec4b6; border-color: #2ec4b6; color: white"
+              >Update</a
+            >
+            <a
+              href="{% url 'article-delete' article.id %}"
+              class="btn btn-danger btn-sm"
+              >Delete</a
+            >
+            {% endif%}
+            </div>
+        </div>
+        
+          
+          <h6 class="card-subtitle mb-2 text-muted">{{ article.description }}</h6>
+            <small class="form-text text-muted">   <span style="color: #ff9f1c; font-size: 14px; font-weight: 500">
+            By: {{ article.author }} | Date: {{ article.date_posted|date:"F d, Y" }} | Category: {{article.category}}
+            </span></small>          
+          <hr>
+          <p class="card-text">{{ article.content }}</p>               
+        </div>
+       
+        <div class="card-footer" style="display:flex; 
+                flex-directon:row; justify-content: start; font-weight:500">                 
+          <a href="{% url 'article-details' article.id %}" class="btn btn-sm mr-2"  style="background-color: #011627; border-color: #011627; color: #fdfffc"><i class="fas fa-link"></i> Stack Overflow</a>                
+          <a href="{% url 'article-details' article.id %}" class="btn btn-sm mr-2"  style="background-color: #011627; border-color: #011627; color: #fdfffc"><i class="fas fa-link"></i> YouTube</a>
+        </div>  
+      </div>
+    </div>
+  
+  </div>
+  
+  
+    </div>
+  
+
+
+    {% endblock content %}
+  </div>
+</div>

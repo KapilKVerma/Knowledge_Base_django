@@ -1,0 +1,108 @@
+{% extends 'article/base.html' %} {% load crispy_forms_tags %} {% block content %}
+<div class="d-flex justify-content: space-between" style="margin-top:4.15%; width: 100%">
+
+    <div class="card" style="background-color: #2ec4b6; border-radius:0px; height: 92vh">
+          <div class="card-body p-1">
+            {% comment %} <h5 class="card-title">Articles</h5> {% endcomment %}
+          
+           
+            <p class="card-text m-1">
+            <ul class="list-group" style="font-weight:500; font-size:14px">
+             <li class="list-group-item p-2" style="color: #011627; font-size: 24px; background-color: #ffb857 "> {{page_obj.paginator.count}} articles</li>
+             <li class="list-group-item p-2">{{user.first_name}} {{user.last_name}}<br>{{user.email}}</li>                   
+            </ul>
+
+            </p>  
+            <p class="card-text">                       
+            <ul class="list-group" style="font-size:14px">
+                <li class="list-group-item p-2" style="color: #2ec4b6; font-size: 16px; font-weight:500; background-color: #011627 "> Most viewed articles:</li>
+                <li class="list-group-item p-2">Web development</li>
+                <li class="list-group-item p-2">Programming</li>                         
+            </ul>
+            </p>    
+
+            <p class="card-text">
+            <ul class="list-group" style="font-size:14px">
+                <li class="list-group-item p-2" style="color: #2ec4b6; font-size: 16px; font-weight:500; background-color: #011627 "> Recently added articles:</li>
+                <li class="list-group-item p-2">Web development</li>
+                <li class="list-group-item p-2">Programming</li>                         
+            </ul>
+            </p>     
+          </div>
+    </div>
+
+    <div class="col">
+      <div class ="row p-2" style=" display:flex; 
+      flex-directon:row; justify-content: space-between; 
+      border-width: 2px; border-style: solid; 
+      border-color: #2ec4b6; border-radius:0px; background-color:white">
+          <div>
+              <a
+                href="{% url 'article-create' %}"
+                class="btn btn-outline-info btn-sm mr-1 "
+                style="
+                  background-color: #ff9f1c;
+                  border-color: #ff9f1c;
+                  color: white;
+                "
+                >Create</a>        
+                <a
+                href="{% url 'article-user' user.username %}"
+                class="btn btn-outline-secondary btn-sm  "
+             
+                >My Articles</a> 
+
+                  <a
+                href="{% url 'all-articles' %}"
+                class="btn btn-outline-secondary btn-sm  "
+             
+                >All Articles</a>        
+          </div>
+
+            <form class="d-flex">
+              <input
+                class="form-control mr-2  form-control-sm"
+                type="search"
+                placeholder="Artcile title..."
+                aria-label="Search"
+              />
+              <select
+                class="form-control mr-2 size-sm form-control-sm"                
+              >
+               <option>Default Option</option>
+                {% for category in categories %}
+                  <option>{{category.title}}</option>
+                {% endfor %}
+              </select>
+
+              <button
+                class="btn btn-info btn-sm"
+                style="background-color: #ff9f1c; border-color: #ff9f1c; color: white"
+                type="submit"
+              >
+                Search
+              </button>
+            </form>   
+           
+      </div>   
+
+      <div class="m-1">         
+        
+            <form method="POST">
+              {% csrf_token %}
+              <fieldset class="form-group">
+                <legend class="border-bottom ">New Article</legend>
+                {{ form|crispy }}
+              </fieldset>
+              <div class="form-group mt-3">
+                <button class="btn btn-info " type="submit">Submit</button>
+              </div>
+            </form>
+       
+      </div>
+
+    </div>
+
+{% endblock content %}
+
+</div>

@@ -1,0 +1,131 @@
+{% extends 'article/base.html' %} {% load crispy_forms_tags %} {% block content %}
+
+<div class="d-flex justify-content: space-between" style="margin-top:4.15%; width: 100%">   
+      
+        <div class="card" style="background-color: #2ec4b6; border-radius:0px; height: 92vh">
+          <div class="card-body p-1">
+            {% comment %} <h5 class="card-title">Articles</h5> {% endcomment %}
+          
+           
+            <p class="card-text m-1">
+            <ul class="list-group" style="font-weight:500; font-size:14px">
+             <li class="list-group-item p-2" style="color: #011627; font-size: 24px; background-color: #ffb857 "> {{page_obj.paginator.count}} articles</li>
+             <li class="list-group-item p-2">{{user.first_name}} {{user.last_name}}<br>{{user.email}}</li>                   
+            </ul>
+
+            </p>  
+            <p class="card-text">                       
+            <ul class="list-group" style="font-size:14px">
+                <li class="list-group-item p-2" style="color: #2ec4b6; font-size: 16px; font-weight:500; background-color: #011627 "> Most viewed articles:</li>
+                <li class="list-group-item p-2">Web development</li>
+                <li class="list-group-item p-2">Programming</li>                         
+            </ul>
+            </p>    
+
+            <p class="card-text">
+            <ul class="list-group" style="font-size:14px">
+                <li class="list-group-item p-2" style="color: #2ec4b6; font-size: 16px; font-weight:500; background-color: #011627 "> Recently added articles:</li>
+                <li class="list-group-item p-2">Web development</li>
+                <li class="list-group-item p-2">Programming</li>                         
+            </ul>
+            </p>     
+          </div>
+        </div>
+   
+    
+  
+    <div class="col">
+      <div class ="row p-2" style=" display:flex; 
+      flex-directon:row; justify-content: space-between; 
+      border-width: 2px; border-style: solid; 
+      border-color: #2ec4b6; border-radius:0px; background-color:white">
+          <div>
+              <a
+                href="{% url 'article-create' %}"
+                class="btn btn-outline-info btn-sm mr-1 "
+                style="
+                  background-color: #ff9f1c;
+                  border-color: #ff9f1c;
+                  color: white;
+                "
+                >Create</a>        
+                <a
+                href="{% url 'all-articles' %}"
+                class="btn btn-outline-secondary btn-sm  "
+             
+                >All Articles</a>       
+          </div>
+
+            <form class="d-flex">
+              <input
+                class="form-control mr-2  form-control-sm"
+                type="search"
+                placeholder="Artcile title..."
+                aria-label="Search"
+              />
+              <select
+                class="form-control mr-2 size-sm form-control-sm"                
+              >
+               <option>Default Option</option>
+                {% for category in categories %}
+                  <option>{{category.title}}</option>
+                {% endfor %}
+              </select>
+
+              <button
+                class="btn btn-info btn-sm"
+                style="background-color: #ff9f1c; border-color: #ff9f1c; color: white"
+                type="submit"
+              >
+                Search
+              </button>
+            </form>    
+      </div>
+      <div class ="row mt-2 m-2">
+      {% for article in articles %}
+      <div class="card mb-2" style="background-color: #fdfffc; width: 100%">
+        <div class="card-body" style="padding: .9rem" >
+          <div style="display:flex; flex-direction: row; justify-content: space-between">
+            <h6 class="card-title" style="color: #2ec4b6">
+              {{ article.title }}  <small class="form-text text-muted">
+              
+              {{ article.date_posted|date:"F d, Y" }} | <span class="badge badge-secondary"> {{article.category}}</span>
+              </small>  
+            </h6>
+            <span  style=" font-size:12px; font-weight:500">
+              <a href="{% url 'article-details' article.id %}" class="btn btn-sm"  style="background-color: #011627; border-color: #011627; color: #fdfffc">Read More</a>
+            </span>           
+          </div>
+          
+          <p class="card-text">{{ article.description }}</p> 
+        </div>
+      </div>
+
+      {% endfor %}
+
+
+      {% if is_paginated %}
+        {% if page_obj.has_previous %}
+        {% comment %} <a class="btn btn-outline-info mb-4 mt-1 btn-sm" style=" background-color: #2ec4b6; border-color:#2ec4b6; color:black" href="?page=1">First</a> {% endcomment %}
+        <a class="btn btn-outline-info  mt-1 mr-1 btn-sm" style=" border-color:#2ec4b6; color:#2ec4b6" href="?page={{ page_obj.previous_page_number }}"><i class="fas fa-chevron-left"></i></a>
+        {% endif %}
+
+        {% for num in page_obj.paginator.page_range %}
+          {% if page_obj.number == num %}
+            <a class="btn btn-info  mt-1 mr-1 btn-sm" style="background-color: #2ec4b6; border-color:#2ec4b6" href="?page={{num}}">{{num}}</a>
+          {% elif num > page_obj.number|add:'-2' and num < page_obj.number|add:'2' %}
+            <a class="btn btn-outline-info  mt-1 mr-1 btn-sm" style="border-color:#2ec4b6" href="?page={{num}}">{{num}}</a>
+          {% endif %}
+        {% endfor %}
+
+          {% if page_obj.has_next %}
+        <a class="btn btn-outline-info  mt-1 mr-1 btn-sm" style=" border-color:#2ec4b6; color:#2ec4b6" href="?page={{page_obj.next_page_number}}"><i class="fas fa-chevron-right"></i></a>
+        {% comment %} <a class="btn btn-outline-info mb-4 mt-1 btn-sm" style="background-color: #2ec4b6; border-color:#2ec4b6; color:black" href="?page={{ page_obj.paginator.num_pages }}">Last</a> {% endcomment %}
+        {% endif %}
+      {% endif %}
+    </div>
+</div>
+
+{% endblock content %}
+
+</div>

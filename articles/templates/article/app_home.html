@@ -1,0 +1,42 @@
+{% extends 'article/base.html' %} {% load crispy_forms_tags %} {% block content %}
+
+<div class="row" style="background-color: #2ec4b6; border-radius:0.25rem; padding: 4rem; box-shadow:0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); margin-top:6.5%">
+    <div class="col shadow-lg" style="color:white">
+    <div style="font-size:5rem; font-weight:500; color: #011627">KnowCS</div>
+    <div style="font-size:1.25rem">
+     It is a <span style="font-size:1.45rem; color: #011627; font-weight:500">KNOWLEDGE BASE </span> of latest 
+     <span style="font-size:1.45rem; color: #011627; font-weight:500">Computer Science & Programming Topics</span>. 
+     This collection also includes the topics on latest technologies and platforms.
+    </div>
+    </div>
+    <div class="col-5">
+    <div class="card" >    
+        <div class="card-body" style>
+            <form method="POST">
+            {% csrf_token %}
+            <fieldset class="form-group">
+                <legend class="border-bottom mb-4">Log In</legend>
+                {{ form|crispy }}
+            </fieldset>
+            <div class="form-group ">
+                <button class="btn btn-outline-info mb-3" type="submit" style="background-color: #011627; border-color: #011627; color: #fdfffc">Log In</button>
+            </div>
+            </form>
+            <div class="border-top ">
+            <small class="test-muted"
+                >Need An Account?
+                <a class="ml-2" href="{% url 'register'%} ">Sign Up Now</a></small
+            >
+            </div>
+            </div>
+        </div>
+    </div>
+    </div> 
+
+
+</div>
+
+
+
+{% endblock content %}
+

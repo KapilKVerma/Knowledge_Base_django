@@ -1,0 +1,26 @@
+{% extends 'article/base.html' %} {% block content %}
+<div class="card mt-4" style="width: 30rem">
+  <div class="card-header">kw.base</div>
+  <div class="card-body">
+    <form method="POST">
+      {% csrf_token %}
+      <fieldset class="form-group">
+        <legend class="border-bottom mb-4">Delete Article</legend>
+        <h4>Are you sure you want to delete the post "{{article.title}}" ?</h4>
+      </fieldset>
+      <div class="form-group mt-3">
+        <button class="btn btn-outline-danger mb-3" type="submit">
+          Yes, Delete
+        </button>
+        <a
+          class="btn btn-outline-info mb-3 ml-3"
+          href="{% url 'article-details' article.id %}"
+        >
+          Cancel
+        </a>
+      </div>
+    </form>
+  </div>
+</div>
+
+{% endblock content %}

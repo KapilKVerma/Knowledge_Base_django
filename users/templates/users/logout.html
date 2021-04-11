@@ -1,0 +1,13 @@
+{% extends 'article/base.html' %} {% block content %}
+<div class="card mt-4" style="width: 30rem">
+  <div class="card-header">kw.base</div>
+  <div class="card-body">
+    <h2>You have been logged out.</h2>
+    <div class="border-top pt-3">
+      <small class="test-muted"
+        >Log in again. <a class="ml-2" href="{% url 'login'%}">Login</a></small
+      >
+    </div>
+  </div>
+</div>
+{% endblock content %}
